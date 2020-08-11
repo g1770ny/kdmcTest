@@ -1,0 +1,65 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-backdrop="static" data-keyboard="false">
+  Adicionar persona
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ persona ? 'Editar' : 'Adicionar' }} persona</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <input formControlName="numero" type="hidden" class="form-control"/>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="nombre" class="col-form-label">Nombre</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="nombre"
+                     placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="apellido1" class="col-form-label">Apellido1</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="apellido1"
+                     placeholder="Apellido1">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="apellido2" class="col-form-label">Apellido2</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="apellido2"
+                     placeholder="Apellido2">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col mb-0 pb-0">
+              <label for="nombre" class="col-form-label">Firma</label>
+
+                <div class="rounded border">
+                  <signature-pad
+                    #signatureCanvas
+                    [options] = "signaturePadOptions"
+                    id = "signatureCanvas"
+                    >
+                  </signature-pad>
+                </div>
+                <button type="button" class="btn btn-outline-info btn-sm mt-2" (click)="signaturePad.clear()">Limpiar Firma</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="guardar()" [disabled]="form.invalid || noFirmado">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
